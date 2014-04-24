@@ -1,4 +1,4 @@
-#BunuelPub
+# JBMPub
 
 Publishing Stack for the personal website of Jesse B Miller.
 
