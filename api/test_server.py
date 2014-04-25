@@ -1,6 +1,6 @@
 import unittest
 
-class UpdateStorageTests(unittest.TestCase):
+class JBMPubModelServerTests(unittest.TestCase):
 
     def setUp(self):
         pass
