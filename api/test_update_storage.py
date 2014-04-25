@@ -11,5 +11,5 @@ class UpdateStorageTests(unittest.TestCase):
     def test_can_pass(self):
         self.assertTrue(True)
 
-if __name__ = '__main__':
+if __name__ == '__main__':
     unittest.main()
