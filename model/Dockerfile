@@ -11,5 +11,3 @@ RUN apt-get update
 RUN apt-get install -y git python-pip python-dev
 RUN pip install supervisor
 RUN git clone https://github.com/jessebmiller/JBMPub.git /srv/JBMPub
-
-CMD ['python', '/srv/JBMPub/api/server.py']
