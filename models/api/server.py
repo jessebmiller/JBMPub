@@ -4,9 +4,9 @@ from werkzeug.routing import Map, Rule, RequestRedirect, NotFound
 from controllers import home, content
 
 url_map = Map([
-        Rule('/', endpoint=home),
-        Rule('/<collection>/', endpoint=content),
-        Rule('/<collection>/<key>', endpoint=content),
+        Rule('/v0/', endpoint=home),
+        Rule('/v0/<collection>/', endpoint=content),
+        Rule('/v0/<collection>/<key>', endpoint=content),
         ])
 
 def handle_request(req, url_map):
@@ -19,6 +19,7 @@ def app(req):
         return handle_request(req, url_map)
     except KeyError, e:
         return NotFound("could not find {}".format(e))
+
 
 if __name__ == "__main__":
     from werkzeug.serving import run_simple
