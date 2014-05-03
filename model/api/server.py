@@ -22,5 +22,6 @@ def app(req):
 
 
 if __name__ == "__main__":
+    import sys
     from werkzeug.serving import run_simple
-    run_simple('0.0.0.0', 4000, app, use_reloader=True, use_debugger=True)
+    run_simple(sys.argv[1], 4000, app, use_reloader=True, use_debugger=True)
