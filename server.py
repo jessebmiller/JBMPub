@@ -1,4 +1,4 @@
-import zmq
+import zmq, re
 
 from werkzeug.wrappers import Request, Response
 from werkzeug.routing import Map, Rule, RequestRedirect, NotFound
@@ -15,9 +15,16 @@ inbox.connect(inbound_addr)
 outbound.bind(outbound_addr)
 
 def dispatch(req):
-    outbound.send(str(req.path))
-    response = inbox.recv()
-    return Response(response, content_type='text/html')
+
+    path = req.path
+
+    if re.match('^/static/', path):
+        with open(path[1:], 'r') as staticfile:
+            return Response(staticfile.read(), content_type='text/css')
+    else:
+        outbound.send(str(req.path))
+        response = inbox.recv()
+        return Response(response, content_type='text/html')
 
 @Request.application
 def app(req):

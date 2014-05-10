@@ -1,4 +1,4 @@
-import zmq
+import zmq, json
 
 context = zmq.Context()
 bartok = context.socket(zmq.REQ)
@@ -11,7 +11,22 @@ outbound = context.socket(zmq.PUSH)
 inbox.connect(inbound_addr)
 outbound.bind(outbound_addr)
 
+collections = {
+    'thoughts': 'thought',
+    'articles': 'article',
+    }
+
 while True:
     path = inbox.recv()
-    print "Logic got {}".format(path)
-    outbound.send('logic $ {}'.format(path))
+    if path == '/':
+        query = 'all things;recent 10'
+    elif path.split('-')[0] == '/sha256':
+        query = "just {}".format(path.split('/')[1])
+    elif collections.get(path.split('/')[1], False):
+        query = "includes {};recent 10".format(collections[path.split('/')[1]])
+    else:
+        query = "just 404"
+
+    request = json.dumps({'request': {'path': path},
+                          'body': query})
+    outbound.send(request)
