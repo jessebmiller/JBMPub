@@ -1,0 +1,12 @@
+html {
+    font-size: 18px;
+}
+
+h1 {
+    font-size: 5em;
+}
+
+.content {
+    width: 68%;
+    margin: 0px auto;
+}
