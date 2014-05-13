@@ -18,6 +18,10 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Sorts Mill Goudy";
 }
 
+img {
+    width: 100%;
+}
+
 h1 { font-size: 2.5em; }
 h2 { font-size: 2em; }
 h3 { font-size: 1.5em; }
@@ -63,17 +67,47 @@ header .content a {
     text-decoration: none;
 }
 
+.article p a {
+    text-decoration: underline;
+}
+.article p a:link {
+    text-decoration: underline;
+}
+.article p a:visited {
+    text-decoration: underline;
+}
+.article p a:hover {
+    text-decoration: underline;
+}
+.article p a:active {
+    text-decoration: underline;
+}
+
 /* margins */
 header {
-    padding: 5em 0px 1em 0px;
+    padding: 10em 0px 1em 0px;
+}
+
+header a {
+    border-top: 10em solid black;
 }
 
 footer {
     padding: 5em 0px 3em 0px;
 }
 
+footer a {
+    font-size: 1.2em;
+    margin: 1em 0px .2em 0px;
+    border-bottom: 10em solid black;
+}
+
 .piece {
-    margin: 1.5em 0px .75em 0px;
+    margin: 2em 0px 4em 0px;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 1em 0px .2em 0px;
 }
 
 time {

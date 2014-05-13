@@ -18,7 +18,9 @@ collections = {
 
 while True:
     path = inbox.recv()
-    if path == '/':
+    if path == '/82dafc2fe2d77b3be4b673512d3516781606d409038efb77f296ea260710f1ee':
+        query = 'update_content now'
+    elif path == '/':
         query = 'all things;recent 10'
     elif path.split('-')[0] == '/sha256':
         query = "just {}".format(path.split('/')[1])
@@ -26,6 +28,8 @@ while True:
         query = "includes {};recent 10".format(collections[path.split('/')[1]])
     else:
         query = "just 404"
+
+    print 'requesting', query
 
     request = json.dumps({'request': {'path': path},
                           'body': query})

@@ -16,27 +16,34 @@ outbound.bind(outbound_addr)
 
 __content__ = {'404': {'text': '404: This page intentionally left blank'}}
 
-os.system('git clone https://github.com/jessebmiller/writing.git')
-os.system('cd writing && git pull')
+def update_content(_):
 
-def injest_thought(arg, dirname, names):
-    for name in names:
-        time = datetime.fromtimestamp(int(name))
-        with open("{}/{}".format(dirname, name), 'r') as t:
-            text = t.read()
-        sha256 = "sha256-{}".format(hashlib.sha256(text).hexdigest())
-        __content__[sha256] = { 'time': time.ctime(),
-                                'thought': text}
+    global __content__
+    __content__ = {'404': {'text': '404: This page intentionally left blank'}}
 
-def injest_article(arg, dirname, names):
-    for name in names:
-        with open("{}/{}".format(dirname, name), 'r') as a:
-            md = a.read()
-        sha256 = "sha256-{}".format(hashlib.sha256(md).hexdigest())
-        __content__[sha256] = {'article': md}
+    os.system('git clone https://github.com/jessebmiller/writing.git')
+    os.system('cd writing && git pull')
 
-os.path.walk('writing/thoughts', injest_thought, None)
-os.path.walk('writing/articles', injest_article, None)
+    def injest_thought(arg, dirname, names):
+        for name in names:
+            time = datetime.fromtimestamp(int(name))
+            with open("{}/{}".format(dirname, name), 'r') as t:
+                text = t.read()
+            sha256 = "sha256-{}".format(hashlib.sha256(text).hexdigest())
+            __content__[sha256] = { 'time': time.ctime(),
+                                    'thought': text}
+
+    def injest_article(arg, dirname, names):
+        for name in names:
+            with open("{}/{}".format(dirname, name), 'r') as a:
+                md = a.read()
+            sha256 = "sha256-{}".format(hashlib.sha256(md).hexdigest())
+            __content__[sha256] = {'article': md}
+
+    os.path.walk('writing/thoughts', injest_thought, None)
+    os.path.walk('writing/articles', injest_article, None)
+
+update_content(None)
 
 handlers = {
     'includes': lambda p: lambda _: [c
@@ -46,7 +53,8 @@ handlers = {
     'recent': lambda n: lambda xs: xs[:int(n)],
     'just': lambda i: lambda _: __content__[i],
     'all': lambda _: lambda _: [c for c in __content__.values()
-                                if c.get('text', [])[:4] != '404:']
+                                if c.get('text', [])[:4] != '404:'],
+    'update_content': lambda _: update_content,
     }
 
 def handle_step(result, step):

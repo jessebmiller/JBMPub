@@ -30,7 +30,7 @@ def _article(md):
     href = "/sha256-{}".format(sha256(md).hexdigest())
     lines = markdown(md).split('\n')
     lines[0] = "<a href={}>{}</a>".format(href, lines[0])
-    return '\n'.join(lines);
+    return "<div class='article'>{}</div>".format('\n'.join(lines))
 
 types = {
     'thought': _thought,
