@@ -18,10 +18,10 @@ Publishing Stack for the personal website of Jesse B Miller.
 
 start all the services from their respective folders
 
-- /bartok/server.py
-- /logic/api/logic_server.py
-- /model/api/model_server.py
-- /view/api/view_server.py
+- `/bartok/server.py`
+- `/logic/api/logic_server.py`
+- `/model/api/model_server.py`
+- `/view/api/view_server.py`
 
 then start the werkzeug wsgi server
 
